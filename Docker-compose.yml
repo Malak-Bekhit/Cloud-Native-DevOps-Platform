@@ -1,0 +1,42 @@
+service: 
+
+   web:
+     - image: nginx:stable-alpine3.24-perl
+       container: nginx1
+       ports:
+         - 8020:8020
+
+
+   Promethues: 
+      - image: prom/prometheus
+        container: Promethues
+        volumes:
+          - ./prometheus/:/etc/promethues
+          - ./prometheus/:/etc/promethues
+        ports:
+          - 9090:9090
+
+
+   Jenkines:
+      - image: jenkins/jenkins
+        container: Jenkines
+        volumes:
+          - ./jenkins:/
+        ports:
+          -  8080:8080
+
+   
+     
+   Grafana:
+     - image: grafana/grafana-interprise
+       container: Grafana
+       volumes:
+         -
+       ports:
+         - 3000:3000
+         
+
+
+   Helm:
+
+   Exporter: 
