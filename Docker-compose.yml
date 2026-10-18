@@ -1,39 +1,42 @@
 service: 
 
    web:
-     - image: nginx:stable-alpine3.24-perl
-       container: nginx1
+       image: nginx:stable-alpine3.24-perl
+       container_name: nginx1
        ports:
-         - 8020:8020
+         - "8020:80"
 
 
    Promethues: 
-      - image: prom/prometheus
-        container: Promethues
+        image: prom/prometheus
+        container_name: Promethues
         volumes:
           - ./prometheus/:/etc/promethues
           - ./prometheus/:/etc/promethues
         ports:
-          - 9090:9090
+          - "9090:9090"
 
 
    Jenkines:
-      - image: jenkins/jenkins
-        container: Jenkines
-        volumes:
-          - ./jenkins:/
+        image: jenkins/jenkins
+        container_name: jenkins
+        restart: unless-stopped  
         ports:
-          -  8080:8080
+          - "8080:8080"
+          - "50000:50000"
+        volumes:  
+          - ./jenkins_home:/var/jenkins_home
+
+   volumes:
+    - jenkins_home:  
 
    
      
    Grafana:
-     - image: grafana/grafana-interprise
-       container: Grafana
-       volumes:
-         -
+       image: grafana/grafana-interprise
+       container_name: Grafana
        ports:
-         - 3000:3000
+         - "3000:3000"
          
 
 
